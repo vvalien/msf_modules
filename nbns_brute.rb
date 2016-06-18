@@ -32,8 +32,7 @@ class Metasploit3 < Msf::Auxiliary
 
 
  def run()
-    # push through a session... yes i know what route does
-    # i wanted to know how to set it manually 
+    # push through a session... 
     ourclient = nil
     if datastore['SESSION']
       ourclient = framework.sessions[datastore['SESSION']]
@@ -50,7 +49,7 @@ class Metasploit3 < Msf::Auxiliary
     def make_nbname()
       tstore = ""
       datastore['NBNAME'].upcase.each_char { |c|
-        tstore << ((c.ord >> 4)+('A'.ord)).chr + ((c.ord & 0xF) + 'A'.ord).chr  # clusterfucked for 2 hours!
+        tstore << ((c.ord >> 4)+('A'.ord)).chr + ((c.ord & 0xF) + 'A'.ord).chr
       }
       padding = "CA" * (15 - datastore['NBNAME'].length) + 'AA' + "\x00"
       encoded_name = "\x20" + tstore + padding
@@ -74,7 +73,7 @@ class Metasploit3 < Msf::Auxiliary
       return pkt
     end
 
-    # We will be pussing ALLOT of data through our meterp session!
+    # We will be pushing ALLOT of data through our meterp session!
     # Is there a way to generate it locally?
     begin
       (0..65535).each do |n|
